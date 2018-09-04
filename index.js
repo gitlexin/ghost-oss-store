@@ -1,4 +1,5 @@
-var util = require('util')
+const util = require('util');
+const urlParse = require('url').parse;
 var fs = require('fs')
 var path = require('path')
 var Promise = require('bluebird')
@@ -76,8 +77,19 @@ class OssStore extends baseStore {
     })
   }
 
-  read () {
+  read (options) {
+    options = options || {}
 
+    const client = this.client;
+    const key = urlParse(options.path).pathname.slice(1)
+
+    return new Promise(function(resolve, reject) {
+      return client.get(key).then(function(result) {
+        resolve(result.content)
+      }).catch(function (err) {
+        reject(err)
+      })
+    })
   }
  
   getFileKey (file) {
