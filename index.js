@@ -30,7 +30,7 @@ class OssStore extends baseStore {
       .then(function (result) {
         // console.log(result)
         let ossProcess = ''
-        
+
         if(keyOptions.maxPixel){
           ossProcess = `?x-oss-process=image/resize,m_lfit,h_${maxPixel},w_${maxPixel}`
         }
@@ -130,7 +130,7 @@ class OssStore extends baseStore {
       }
 
       if (keyOptions.filenameWithRandam) {
-        name += Math.random().toString(36).substr(2, 8);
+        name += Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6);
       }
 
       return name + ext.toLowerCase();
