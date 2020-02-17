@@ -20,6 +20,7 @@ class OssStore extends baseStore {
     const client = this.client
     const origin = this.options.origin  
     const key = this.getFileKey(file)
+    const keyOptions = this.options.fileKey
 
     return new Promise(function (resolve, reject) {
       return client.put(
@@ -28,10 +29,16 @@ class OssStore extends baseStore {
       )
       .then(function (result) {
         // console.log(result)
+        let ossProcess = ''
+        
+        if(keyOptions.maxPixel){
+          ossProcess = `?x-oss-process=image/resize,m_lfit,h_${maxPixel},w_${maxPixel}`
+        }
+
         if(origin){
-          resolve(utils.joinUrl(origin, result.name))
+          resolve(utils.joinUrl(origin, result.name + ossProcess))
         }else{
-          resolve(result.url)
+          resolve(result.url + ossProcess)
         }      
       })
       .catch(function (err) {

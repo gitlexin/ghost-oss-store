@@ -75,6 +75,7 @@ storage: {
       safeString: true, // use Ghost safaString util to rename filename, e.g. Chinese to Pinyin
       folderByDate: true, // add date folder, e.g. 201901
       filenameWithRandam: true, // add randam string after filename
+      maxPixel: 2000, // max width or height to 2000px
       prefix: 'ghost/',  // { String } will be formated by moment.js, using `[]` to escape,
       suffix: '' // { String } string added before file extname.
     }
