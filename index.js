@@ -1,6 +1,5 @@
 const util = require('util');
 const urlParse = require('url').parse;
-const randomstring = require('randomstring');
 
 const fs = require('fs')
 const path = require('path')
@@ -107,16 +106,16 @@ class OssStore extends baseStore {
       if (keyOptions.safeString) {
         name = utils.safeString(name)
       }
-  
-      if (keyOptions.prefix) {
-        name = path.join(keyOptions.prefix, name);
-      }
-
+    
       if (keyOptions.folderByDate){
         const now = new Date()
         const month = now.getMonth()
         const dateDir = `${now.getFullYear()}${month < 10 ? '0' + month : month }`
         name = path.join(dateDir, name);
+      }
+
+      if (keyOptions.prefix) {
+        name = path.join(keyOptions.prefix, name);
       }
   
       if (keyOptions.suffix) {
@@ -124,11 +123,7 @@ class OssStore extends baseStore {
       }
 
       if (keyOptions.filenameWithRandam) {
-        name += '-' + randomstring.generate({
-          length: 8,
-          charset: 'alphanumeric',
-          capitalization: 'lowercase'
-        })
+        name += Math.random().toString(36).substr(2, 8);
       }
 
       return name + ext.toLowerCase();
