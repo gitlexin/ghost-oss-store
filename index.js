@@ -102,7 +102,7 @@ class OssStore extends baseStore {
         return typeof obj === 'function' ? obj() : obj
       };
       const ext = path.extname(file.name)
-      const name = path.basename(file.name, ext)
+      let name = path.basename(file.name, ext)
   
       if (keyOptions.safeString) {
         name = utils.safeString(name)
