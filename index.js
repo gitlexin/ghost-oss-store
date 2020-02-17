@@ -1,12 +1,14 @@
 const util = require('util');
 const urlParse = require('url').parse;
-var fs = require('fs')
-var path = require('path')
-var Promise = require('bluebird')
-var OSS = require('ali-oss').Wrapper
-var utils = require('./utils')
+const randomstring = require('randomstring');
 
-var baseStore = require('ghost-storage-base')
+const fs = require('fs')
+const path = require('path')
+const Promise = require('bluebird')
+const OSS = require('ali-oss').Wrapper
+const utils = require('./utils')
+
+const baseStore = require('ghost-storage-base')
 
 class OssStore extends baseStore {
   constructor (config) {
@@ -16,9 +18,9 @@ class OssStore extends baseStore {
   }
 
   save (file, targetDir) {
-    var client = this.client
-    var origin = this.options.origin  
-    var key = this.getFileKey(file)
+    const client = this.client
+    const origin = this.options.origin  
+    const key = this.getFileKey(file)
 
     return new Promise(function (resolve, reject) {
       return client.put(
@@ -42,7 +44,7 @@ class OssStore extends baseStore {
 
   exists (filename) {
     // console.log('exists',filename)
-    var client = this.client  
+    const client = this.client  
   
     return new Promise(function (resolve, reject) {
       return client.head(filename).then(function (result) {
@@ -63,7 +65,7 @@ class OssStore extends baseStore {
   }
   
   delete (filename) {
-    var client = this.client  
+    const client = this.client  
   
     // console.log('del',filename)
     return new Promise(function (resolve, reject) {
@@ -93,14 +95,14 @@ class OssStore extends baseStore {
   }
  
   getFileKey (file) {
-    var keyOptions = this.options.fileKey
+    const keyOptions = this.options.fileKey
   
     if (keyOptions) {
-      var getValue = function (obj) {
+      const getValue = function (obj) {
         return typeof obj === 'function' ? obj() : obj
       };
-      var ext = path.extname(file.name)
-      var name = path.basename(file.name, ext)
+      const ext = path.extname(file.name)
+      const name = path.basename(file.name, ext)
   
       if (keyOptions.safeString) {
         name = utils.safeString(name)
@@ -109,11 +111,26 @@ class OssStore extends baseStore {
       if (keyOptions.prefix) {
         name = path.join(keyOptions.prefix, name);
       }
+
+      if (keyOptions.folderByDate){
+        const now = new Date()
+        const month = now.getMonth()
+        const dateDir = `${now.getFullYear()}${month < 10 ? '0' + month : month }`
+        name = path.join(dateDir, name);
+      }
   
       if (keyOptions.suffix) {
         name += getValue(keyOptions.suffix)
       }
-  
+
+      if (keyOptions.filenameWithRandam) {
+        name += '-' + randomstring.generate({
+          length: 8,
+          charset: 'alphanumeric',
+          capitalization: 'lowercase'
+        })
+      }
+
       return name + ext.toLowerCase();
     }
   

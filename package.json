@@ -8,14 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:MT-Libraries/ghost-oss-store.git"
+    "url": "git@github.com:goodideal/ghost-oss-store.git"
   },
-  "author": "Thonatos.Yang",
+  "author": "Jerry.Zhu",
   "license": "MIT",
   "dependencies": {
-    "ali-oss": "^4.4.4",
-    "bluebird": "^3.4.6",
-    "ghost-storage-base": "^0.0.1",
+    "ali-oss": "^6.5.1",
+    "bluebird": "^3.7.2",
+    "ghost-storage-base": "^0.0.3",
+    "randomstring": "^1.1.5",
     "unidecode": "^0.1.8"
   }
 }

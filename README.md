@@ -9,6 +9,8 @@ This [Ghost custom storage module](https://docs.ghost.org/docs/using-a-custom-st
 
 ## Supported
 
+- [x] 3.x
+- [x] 2.x
 - [x] 1.x
 - [ ] 0.x
 
@@ -71,6 +73,8 @@ storage: {
     origin: 'https://www.thonatos.com/', // if you have bind custom domain to oss bucket. or false             
     fileKey: {
       safeString: true, // use Ghost safaString util to rename filename, e.g. Chinese to Pinyin
+      folderByDate: true, // add date folder, e.g. 201901
+      filenameWithRandam: true, // add randam string after filename
       prefix: 'ghost/',  // { String } will be formated by moment.js, using `[]` to escape,
       suffix: '' // { String } string added before file extname.
     }
