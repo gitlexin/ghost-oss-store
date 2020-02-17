@@ -5,7 +5,7 @@ const randomstring = require('randomstring');
 const fs = require('fs')
 const path = require('path')
 const Promise = require('bluebird')
-const OSS = require('ali-oss').Wrapper
+const OSS = require('ali-oss')
 const utils = require('./utils')
 
 const baseStore = require('ghost-storage-base')
