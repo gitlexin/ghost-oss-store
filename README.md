@@ -9,6 +9,7 @@ This [Ghost custom storage module](https://docs.ghost.org/docs/using-a-custom-st
 
 ## Supported
 
+- [x] 4.x
 - [x] 3.x
 - [x] 2.x
 - [x] 1.x
@@ -16,45 +17,20 @@ This [Ghost custom storage module](https://docs.ghost.org/docs/using-a-custom-st
 
 ## Installation
   
-### Via NPM
-
-- Install Oss storage module
-
-  ```
-  npm install ghost-oss-store
-  ```
-  
-- Make the storage folder if it doesn't exist yet
-
-  ```
-  mkdir -p content/adapters/storage
-  ```
-  
- - Create a script named "oss-store.js", content as follow:
- 
- ```js
- //  content/adapters/storage/oss-store.js
-
-module.exports = require('ghost-oss-store');
- ```
-
 ### Via Git
 
 In order to replace the storage module, the basic requirements are:
 
-- Create a new folder inside `/content` called `/storage`
+- Create a new folder inside `/content` called `/adapters/storage`
 
-- Clone this repo to `/storage`
+- Clone this repo to `/content/adapters/storage`
 
   ```
-  cd [path/to/ghost]/content/storage
+  cd [path/to/ghost]
+  mkdir -p ./content/adapters/storage
+  cd ./content/adapters/storage
   mkdir oss-store && cd oss-store
-  git clone https://github.com/MT-Libraries/ghost-oss-store ./
-  ```
-
-- Install dependencies
-
-  ```
+  git clone https://github.com/gitlexin/ghost-oss-store ./
   npm install
   ```
 
