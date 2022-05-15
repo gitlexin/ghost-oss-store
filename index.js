@@ -32,7 +32,7 @@ class OssStore extends baseStore {
         let ossProcess = ''
 
         if(keyOptions.maxPixel){
-          ossProcess = `?x-oss-process=image/resize,m_lfit,h_${maxPixel},w_${maxPixel}`
+          ossProcess = `?x-oss-process=image/resize,m_lfit,h_${keyOptions.maxPixel},w_${keyOptions.maxPixel}`
         }
 
         if(origin){
